@@ -1,0 +1,7 @@
+spacy==2.3.5
+fastapi
+uvicorn[standard]
+pydantic
+pymupdf
+nltk
+pytest

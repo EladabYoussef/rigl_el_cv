@@ -1,0 +1,73 @@
+project architecture:
+resume-analyzer/
+│
+├── backend/
+│   ├── main.py               # FastAPI entry point
+│   ├── routes/
+│   │   └── analyze.py        # POST /analyze
+│   ├── services/
+│   │   ├── parser.py         # PDF text extraction
+│   │   ├── ner.py            # NER logic (spaCy or Hugging Face)
+│   │   └── matcher.py        # Job description vs resume matching
+│   ├── models/               # Pydantic models
+│   │   └── resume.py
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   │   ├── App.jsx
+│   │   ├── components/
+│   │   │   ├── UploadForm.jsx
+│   │   │   └── ResultViewer.jsx
+│   │   └── api/               # Axios API calls
+│   │       └── analyze.js
+│   ├── package.json
+│   └── tailwind.config.js
+│
+├── docker/
+│   ├── backend.Dockerfile
+│   └── frontend.Dockerfile
+│
+├── docker-compose.yml       # (optional for dev)
+├── README.md
+└── .gitignore
+
+system architecture:
+          +-------------------+
+          |   User (Browser)  |
+          +--------+----------+
+                   |
+                   ▼
+          +--------+----------+
+          |   React Frontend  |
+          | (form, upload UI) |
+          +--------+----------+
+                   |
+        POST /upload_resume (PDF)
+                   |
+                   ▼
+          +--------+----------+
+          |   FastAPI Backend |
+          | - Receives PDF    |
+          | - Extracts Text   |
+          | - Runs NER (spaCy/HF)  |
+          | - Scores Match    |
+          | - Returns JSON    |
+          +--------+----------+
+                   |
+                   ▼
+          +--------+----------+
+          |  Pretrained NLP   |
+          |  Models (spaCy or |
+          |  Hugging Face)    |
+          +--------+----------+
+                   |
+                   ▼
+       +-----------+------------+
+       | PDF Parser (pdfminer/  |
+       | PyMuPDF)               |
+       +-----------+------------+
+                   |
+                   ▼
+      (Optional) Local DB / Storage
+
