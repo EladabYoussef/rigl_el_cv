@@ -6,6 +6,7 @@ from backend.services import text_from_pdf
 def test_text_from_pdf():
     with open("../backend/pdfs/test1.pdf", "rb") as pdf:
         bytes = pdf.read()
+
     result = text_from_pdf(bytes)
     assert isinstance(result, str)
     assert len(result) > 0
