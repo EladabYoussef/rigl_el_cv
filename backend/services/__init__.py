@@ -1,0 +1,1 @@
+from .parser import text_from_pdf
