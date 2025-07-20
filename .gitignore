@@ -1,1 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg
+*.egg-info/
+dist/
+build/
+
+# VSCode or PyCharm settings (optional)
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+
+#api keys here
 .env
