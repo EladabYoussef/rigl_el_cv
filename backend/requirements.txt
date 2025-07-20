@@ -3,9 +3,6 @@ fastapi
 uvicorn[standard]
 pydantic
 pymupdf
-nltk
 python-dotenv
-langchain
-langchain-openai
-langchain-core
+sentence_transformers
 numpy
