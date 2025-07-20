@@ -1,7 +1,7 @@
 import sys
 import os
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../backend")))
-from services.parser import text_from_pdf
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../")))
+from backend.services import text_from_pdf
 
 def test_text_from_pdf():
     with open("../backend/pdfs/test1.pdf", "rb") as pdf:

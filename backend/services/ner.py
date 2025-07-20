@@ -1,5 +1,3 @@
-import nltk
-nltk.download('stopwords')
 import spacy
 import re
 
@@ -8,7 +6,6 @@ def extract_entities(text, nlp):
         "NAME":[],
         "EMAIL":[],
         "LINKEDIN":[],
-        "PHONE":[],
         "GITHUB":[],
         "SKILLS":[],
         "EXPERIENCE": [],
@@ -16,7 +13,7 @@ def extract_entities(text, nlp):
 
     doc = nlp(text)
     for ent in doc.ents:
-        if ent.label_ == "PER":
+        if ent.label_ == "PERSON":
             entities["NAME"].append(ent.text)
             break
     try:
@@ -24,13 +21,16 @@ def extract_entities(text, nlp):
     except:
         email = ""
     try:
-        github = re.findall(r'(https?:\/\/)?(www\.)?github\.com\/[A-Za-z0-9_.-]+', text)[0]
+        github = re.findall(r'(?:https?:\/\/)?(?:www\.)?(github\.com\/[A-Za-z0-9_.-]+)', text)[0]
     except:
         github = ""
     try:
-        linkedin = re.findall(r'(https?:\/\/)?(www\.)?linkedin\.com\/in\/[A-Za-z0-9_-]+', text)[0]
+        linkedin = re.findall(r'(?:https?:\/\/)?(?:www\.)?(linkedin\.com\/in\/[A-Za-z0-9_-]+)', text)[0]
     except:
         linkedin = ""
+    entities["EMAIL"].append(email)
+    entities["LINKEDIN"].append(linkedin)
+    entities["GITHUB"].append(github)
     text = text.lower()
     doc = nlp(text)
     for ent in doc.ents:
@@ -56,6 +56,14 @@ if __name__ == "__main__":
     with open(pdf_path, "rb") as pdf:
         bytes_ = pdf.read()
     text= text_from_pdf(bytes_)
+    text = """
+    John Doe
+    Email: john.doe@example.com
+    LinkedIn: https://www.linkedin.com/in/johndoe
+    GitHub: https://github.com/johndoe
+    Skills: Python, FastAPI, NLP
+    Experience: 2018 - 2022
+    """
     entities = extract_entities(text, nlp)
     for key, value in entities.items():
         print(key, ":", value)

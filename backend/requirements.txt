@@ -4,4 +4,8 @@ uvicorn[standard]
 pydantic
 pymupdf
 nltk
-pytest
+python-dotenv
+langchain
+langchain-openai
+langchain-core
+numpy
