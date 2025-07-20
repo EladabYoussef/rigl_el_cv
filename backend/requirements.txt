@@ -6,3 +6,6 @@ pymupdf
 python-dotenv
 sentence_transformers
 numpy
+langchain
+langchain-community
+python-multipart
